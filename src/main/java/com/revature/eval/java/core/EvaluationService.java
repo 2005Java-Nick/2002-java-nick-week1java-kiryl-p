@@ -600,8 +600,20 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+	// TODO Write an implementation for this method declaration
+		string = string.replace("?", "");
+		String clean[] = string.split(" ");
+		int result = 0;
+		if (string.contains("plu")) {
+			result = Integer.parseInt(clean[2]) + Integer.parseInt(clean[4]);
+		} else if (string.contains("min")) {
+			result = Integer.parseInt(clean[2]) - Integer.parseInt(clean[4]);
+		} else if (string.contains("mult")) {
+			result = Integer.parseInt(clean[2]) * Integer.parseInt(clean[5]);
+		} else if (string.contains("div")) {
+			result = Integer.parseInt(clean[2]) / Integer.parseInt(clean[5]);
+		}
+	return result;
 	}
 
 }
