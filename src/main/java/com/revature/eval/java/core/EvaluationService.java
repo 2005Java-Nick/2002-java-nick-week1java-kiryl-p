@@ -13,7 +13,7 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String reverse(String string) {
+	public String reverse (String string) {
 		char[] reversed = new char[string.length()];
 		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
 			reversed[j] = string.charAt(i);
@@ -30,8 +30,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String[] words = new String[phrase.length()];
+		words = phrase.split(" ");
+		String acronym = "";
+		for (int i = 0; i < words.length; i++) {
+			acronym += words[i].charAt(0);
+		}
+		return acronym;
 	}
 
 	/**
@@ -82,22 +87,34 @@ public class EvaluationService {
 		public void setSideThree(double sideThree) {
 			this.sideThree = sideThree;
 		}
-
+		
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
+			if (this.getSideOne() == this.getSideTwo() && this.getSideTwo() == this.getSideThree()) {
+				return true;
+			}
 			return false;
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
+			if (this.getSideOne() == this.getSideTwo() && this.getSideOne() != this.getSideThree()) {
+				return true;
+			} else if (this.getSideTwo() == this.getSideThree() && this.getSideTwo() != this.getSideThree()) {
+				return true;	
+			} else if (this.getSideOne() == this.getSideThree() && this.getSideOne() != this.getSideTwo()) {
+				return true;
+			}
 			return false;
 		}
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
+			if (this.getSideOne() != this.getSideTwo() && this.getSideOne() != this.getSideThree()) {
+				return true;
+			}
 			return false;
 		}
-
 	}
 
 	/**
@@ -117,7 +134,18 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		string = string.replaceAll("[AaEeIiOoUuLlNnRrSsTt]", "1");
+		string = string.replaceAll("[DdGg]", "2");
+		string = string.replaceAll("[BbCcMmPp]", "3");
+		string = string.replaceAll("[FfHhVvWwYy]", "4");
+		string = string.replaceAll("[Kk]", "5");
+		string = string.replaceAll("[JjXx]", "8");
+		string = string.replaceAll("[QqZz]", "55");
+		int score = 0;
+		for (int i = 0; i < string.length(); i++) {
+			score += string.charAt(i) - '0';
+		}
+		return score;
 	}
 
 	/**
@@ -151,9 +179,10 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
-	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+	public static String cleanPhoneNumber(String string) {
+		string = string.replaceAll("[\\D]", "");
+		string = string.replace("1", "");
+		return string;
 	}
 
 	/**
@@ -414,9 +443,23 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+
+	
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		string = string.replaceAll("-", "");
+		string = string.replaceAll("X", "10");
+		boolean result = false;
+		int total = 0;
+		for (int i = 0, j = 10; i < string.length(); i++, j-- ) {
+			int k = string.charAt(i) - '0';
+			System.out.println(total);
+			total += k * j;
+		}
+		if (total % 11 == 0) {
+			result = true;
+		}
+		
+		return result;
 	}
 
 	/**
@@ -506,6 +549,26 @@ public class EvaluationService {
 	 */
 	public boolean isLuhnValid(String string) {
 		// TODO Write an implementation for this method declaration
+		string = string.replaceAll(" ", "");
+		int total = 0;
+		for (int i = 0; i < string.length(); i++) {
+			int j = Integer.parseInt(String.valueOf(string.charAt(i)));
+			if (i % 2 != 0) {
+				total += j;
+				continue;
+			} else {
+				if (j*2 > 9) {
+					j = j * 2 - 9;
+					total += j;
+				} else {
+					j = j * 2;
+					total += j;
+				}
+			}
+		}
+		if (total % 10 == 0) {
+			return true;
+		}
 		return false;
 	}
 
