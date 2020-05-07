@@ -296,6 +296,19 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
+		int original = input;
+		int length = String.valueOf(input).length();
+		int total = 0;
+		int[] arr = new int[length];
+		for (int i = 0; i < length; i++) {
+			arr[i] = input % 10;
+			input = input / 10;
+		}
+		for (int i = 0; i < length; i++) {
+			total += Math.pow(arr[i], length);
+		}
+		if (total == original) {return true;} 
+		
 		return false;
 	}
 
