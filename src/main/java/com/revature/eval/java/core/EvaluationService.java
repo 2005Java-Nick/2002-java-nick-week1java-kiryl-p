@@ -327,7 +327,7 @@ public class EvaluationService {
 		
  		List<Long> factors = new ArrayList<>();
 
-		long n = 12L;
+		long n = l;
 		long limit = n;
 		while (n % 2 == 0) {
 			n /= 2;
