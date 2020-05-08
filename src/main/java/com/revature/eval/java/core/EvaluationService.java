@@ -2,8 +2,11 @@ package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class EvaluationService {
 
@@ -197,7 +200,17 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		Map <String, Integer> map = new HashMap<>();
+		string = string.replaceAll("[^\\w]", " ");
+		String[] clean =  string.split(" ");
+		for (String word : clean) {
+			if (!map.containsKey(word)) {map.put(word, 1);}
+			else {
+				int counter = map.get(word);
+				map.put(word, counter + 1);
+			}
+		}
+		return map;
 	}
 
 	/**
@@ -499,7 +512,6 @@ public class EvaluationService {
 	public boolean isValidIsbn(String string) {
 		string = string.replaceAll("-", "");
 		string = string.replaceAll("X", "10");
-		boolean result = false;
 		int total = 0;
 		for (int i = 0, j = 10; i < string.length(); i++, j-- ) {
 			int k = string.charAt(i) - '0';
@@ -507,10 +519,10 @@ public class EvaluationService {
 			total += k * j;
 		}
 		if (total % 11 == 0) {
-			result = true;
+			return true;
 		}
 		
-		return result;
+		return false;
 	}
 
 	/**
@@ -568,7 +580,20 @@ public class EvaluationService {
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int total = 0;
+		
+		Set <Integer> unique = new HashSet<Integer>();
+		
+		for (int n = 1; n < i; n++) {
+			for (int j = 0; j < set.length; j++) {
+ 				if (n % set[j] == 0) unique.add(n);
+			}
+		}
+		
+		for (Integer element : unique) {
+			total += element;
+		}
+		return total;
 	}
 
 	/**
@@ -610,6 +635,7 @@ public class EvaluationService {
 	public boolean isLuhnValid(String string) {
 		// TODO Write an implementation for this method declaration
 		string = string.replaceAll(" ", "");
+		string = string.replaceAll("[^0-9]", "");
 		int total = 0;
 		for (int i = 0; i < string.length(); i++) {
 			int j = Integer.parseInt(String.valueOf(string.charAt(i)));
