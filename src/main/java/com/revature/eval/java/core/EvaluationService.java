@@ -434,7 +434,20 @@ public class EvaluationService {
 		 */
 		public static String encode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			string = string.replaceAll("[^A-Za-z0-9]", "");
+			string = string.toLowerCase();
+			String forward = "abcdefghijklmnopqrstuvwxyz0123456789";
+			String backward = "zyxwvutsrqponmlkjihgfedcba0123456789";
+			
+			String coded = "";
+			for (int i = 0; i < string.length(); i++) {
+				char letter = string.charAt(i);
+				int place = forward.indexOf(letter);
+				if (i % 5 == 0 && i != 0) {
+					coded += backward.charAt(place) + " ";
+				} else coded += backward.charAt(place);
+			}
+			return coded;
 		}
 
 		/**
@@ -445,7 +458,17 @@ public class EvaluationService {
 		 */
 		public static String decode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			string = string.replaceAll(" ", "");
+			String forward = "zyxwvutsrqponmlkjihgfedcba0123456789";
+			String backward = "abcdefghijklmnopqrstuvwxyz0123456789";
+			
+			String decoded = "";
+			for (int i = 0; i < string.length(); i++) {
+				char letter = string.charAt(i);
+				int place = forward.indexOf(letter);
+				decoded += backward.charAt(place);
+			}
+			return decoded;
 		}
 	}
 
